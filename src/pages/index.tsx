@@ -15,11 +15,10 @@ export default function Home() {
       <Header></Header>
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
-
-        <Container sx={{ justifyItems: "left", alignItems: "flex-start" }}>
-          <MangaList />
-          {/* <script src="https://legacypublic.statuspage.io/embed/script.js"></script> */}
-        </Container>
+        <MangaList />
+        {/* <Container
+          sx={{ justifyItems: "left", alignItems: "flex-start" }}
+        ></Container> */}
       </Box>
     </>
   );

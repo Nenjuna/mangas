@@ -1,13 +1,12 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-
-type Data = {
-  name: string
-}
-
-export default function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
+import { db } from '@vercel/postgres';
+import { NextApiRequest, NextApiResponse } from 'next';
+ 
+export default async function handler(
+  request: NextApiRequest,
+  response: NextApiResponse,
 ) {
-  res.status(200).json({ name: 'John Doe' })
+  const client = await db.connect(); 
+  const pets = await client.sql`SELECT id, chapter, subtitle, pages FROM chapters WHERE mangaid = (SELECT id FROM manga WHERE title='Black Clover')
+ORDER BY CAST(chapter AS FLOAT);`;
+  return response.status(200).json({ pets });
 }

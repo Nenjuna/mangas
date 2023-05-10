@@ -7,6 +7,7 @@ import {
   ImageList,
   ImageListItem,
   Divider,
+  ManagedModalProps,
 } from "@mui/material";
 import data from "../../public/api.json";
 import CircularProgress from "@mui/material/CircularProgress";
