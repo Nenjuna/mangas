@@ -7,7 +7,7 @@ import {
   ImageList,
   ImageListItem,
   Divider,
-  ManagedModalProps,
+  Typography,
 } from "@mui/material";
 import data from "../../public/api.json";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -25,7 +25,7 @@ function Chapter() {
   const [images, setImages] = useState<image[]>([
     {
       src: "https://img.spoilerhat.com/img/?url=https://i.imgur.com/bUqKp0v.png",
-      id: "",
+      id: "def",
     },
   ]);
   const filteredChapter = Object.entries(chapters).find(
@@ -43,20 +43,17 @@ function Chapter() {
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
         <Container sx={{ border: "1px solid #eee" }}>
-          {images.length > 0 ? (
+          {images.length > 1 ? (
             <ImageList sx={{ width: "90%", height: "90vh" }} cols={1}>
-              {images.map((item) => (
-                <>
-                  <ImageListItem key={item.id}>
-                    <img
-                      src={item.src}
-                      alt={item.id}
-                      loading="lazy"
-                      // key={item.id}
-                    />
-                  </ImageListItem>
-                  <Divider />
-                </>
+              {images.map((item, index) => (
+                <ImageListItem key={item.id} sx={{ borderBottom: "1px solid" }}>
+                  <img
+                    src={item.src}
+                    alt={item.id}
+                    loading="lazy"
+                    // key={item.id}
+                  />
+                </ImageListItem>
               ))}
             </ImageList>
           ) : (
