@@ -8,7 +8,6 @@ import Link from "next/link";
 
 function renderRow(props: ListChildComponentProps) {
   const { index, style, data } = props;
-  // console.log(data);
   return (
     <>
       <ListItem
@@ -50,30 +49,20 @@ export default function VirtualizedList() {
       );
     })
   );
-  // console.log(chapters);
-
   const val = Object.entries(chapters);
-  // console.log(data);
-
-  // const chapters = Object.keys(data).sort((a, b) => {
-  //   return (
-  //     b[0].replace("Black Clover, Chapter ", "") -
-  //     a[0].replace("Black Clover, Chapter ", "")
-  //   );
-  // });
 
   return (
     <Box
       sx={{
-        width: "80%",
+        width: "50%",
         height: "100%",
         border: "1px solid #eee",
       }}
     >
       <FixedSizeList
         height={1000}
-        width="100%"
-        itemSize={40}
+        width="auto"
+        itemSize={60}
         itemCount={val.length}
         overscanCount={5}
         itemData={val}
