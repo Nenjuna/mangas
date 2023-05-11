@@ -20,5 +20,5 @@ export default async function handler(
   const client = await db.connect(); 
   const chapters = await client.sql`SELECT id, chapter, subtitle, pages FROM chapters WHERE mangaid = (SELECT id FROM manga WHERE title='Black Clover')
 ORDER BY CAST(chapter AS FLOAT) LIMIT  ${limit} OFFSET ${offset};`;
-  return response.status(200).json({ chapters: chapters.rows });
+  return response.status(200).json({ chapters: chapters.rows, offset: offset, limit: limit });
 }

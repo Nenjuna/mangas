@@ -3,7 +3,16 @@ import * as React from "react";
 import { Container, Box, CssBaseline } from "@mui/material";
 import Header from "../components/Header";
 import MangaList from "../components/MangaList";
+import { NextFetchEvent } from "next/server";
+
+async function getMangaList(limit: number, offset: number) {
+  let mangaList = await fetch(
+    "/api/chapters?limit=" + limit + "&offset=" + offset
+  );
+  return await mangaList.json();
+}
 export default function Home() {
+  console.log(getMangaList(10, 10));
   return (
     <>
       <Head>
