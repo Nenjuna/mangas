@@ -7,7 +7,6 @@ import data from "../../public/api.json";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import * as React from "react";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -30,13 +29,13 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
-  // let c = name.replace("Black Clover, ", "").split(" ");
-  // let co = `${c[0][0]}${c[1]}`;
+  let c = name.replace("Black Clover, ", "").split(" ");
+  let co = `${c[0][0]}${c[1]}`;
   return {
     sx: {
-      bgcolor: stringToColor(name + name),
+      bgcolor: stringToColor(co + co),
     },
-    children: name,
+    children: co.replace("C", ""),
   };
 }
 
@@ -52,15 +51,20 @@ function renderRow(props: ListChildComponentProps) {
         sx={{ p: "10px" }}
       >
         {/* <ListItemButton> */}
-        <Link href={"chapter_" + data[index]["chapter"]}>
+        <Link
+          href={data[index][0]
+            .replace(/ /g, "_")
+            .toLowerCase()
+            .replace("black_clover,_", "")}
+        >
           <Stack direction="row" spacing={2}>
-            <Avatar {...stringAvatar(data[index]["chapter"])} />
+            <Avatar {...stringAvatar(data[index][0])} />
             <ListItemText
-              primary={`Chapter: ${data[index]["chapter"]}`}
+              primary={`${data[index][0].replace(",", ":")}`}
               secondary={
-                data[index]["subtitle"].length > 2
-                  ? data[index]["subtitle"]
-                  : `Chapter: ${data[index]["chapter"]}`
+                data[index][1]["chapter_name"]
+                  ? data[index][1]["chapter_name"]
+                  : data[index][0].replace("Black Clover, ", "")
               }
             />
           </Stack>
@@ -72,28 +76,15 @@ function renderRow(props: ListChildComponentProps) {
 }
 
 export default function VirtualizedList() {
-  const [chapters, setChapters] = React.useState([]);
-
-  const getChapters = async (limit = 10, offset = 0) => {
-    let mangaList = await fetch(
-      "http://localhost:3000/api/chapters?limit=" + limit + "&offset=" + offset
-    );
-    const data = await mangaList.json();
-    setChapters(data.chapters);
-    console.log(data.chapters);
-  };
-
-  getChapters();
-  // const chapters = Object.fromEntries(
-  //   Object.entries(data).sort((a, b) => {
-  //     return (
-  //       parseInt(b[0].replace("Black Clover, Chapter ", "")) -
-  //       parseInt(a[0].replace("Black Clover, Chapter ", ""))
-  //     );
-  //   })
-  // );
-  // const val = Object.entries(chapters);
-  // console.log(chapters);
+  const chapters = Object.fromEntries(
+    Object.entries(data).sort((a, b) => {
+      return (
+        parseInt(b[0].replace("Black Clover, Chapter ", "")) -
+        parseInt(a[0].replace("Black Clover, Chapter ", ""))
+      );
+    })
+  );
+  const val = Object.entries(chapters);
 
   return (
     <Box
@@ -107,9 +98,9 @@ export default function VirtualizedList() {
         height={1000}
         width="auto"
         itemSize={60}
-        itemCount={chapters.length}
+        itemCount={val.length}
         overscanCount={5}
-        itemData={chapters}
+        itemData={val}
       >
         {renderRow}
       </FixedSizeList>

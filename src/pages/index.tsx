@@ -6,19 +6,18 @@ import MangaList from "../components/MangaList";
 import { NextFetchEvent } from "next/server";
 
 export default function Home() {
-  // console.log(getMangaList(10, 10));
   const [chapters, setChapters] = React.useState([]);
 
   const getChapters = async (limit = 100, offset = 0) => {
     let mangaList = await fetch(
-      "/api/chapters?limit=" + limit + "&offset=" + offset
+      "http://localhost:3000/api/chapters?limit=" + limit + "&offset=" + offset
     );
     const data = await mangaList.json();
     // setChapters(data);
-    console.log(data);
+    // console.log(data);
   };
 
-  getChapters();
+  // getChapters();
   return (
     <>
       <Head>
