@@ -31,13 +31,27 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header></Header>
-      <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
+      <Box
+        sx={{
+          display: "flex",
+          p: 3,
+          mt: 8,
+          width: {
+            xs: "100%",
+            sm: "100%",
+            md: "90%",
+            lg: "80%",
+            xl: "60%",
+          },
+        }}
+        component="main"
+      >
         <CssBaseline />
-        <Grid container spacing={2}>
-          <Grid item xs={10}>
-            <MangaList chapters={chapters} />
-          </Grid>
-        </Grid>
+        {/* <Grid container spacing={2}>
+          <Grid item xs={10}> */}
+        <MangaList chapters={chapters} />
+        {/* </Grid>
+        </Grid> */}
 
         {/* <Container
           sx={{ justifyItems: "left", alignItems: "flex-start" }}

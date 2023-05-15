@@ -69,7 +69,10 @@ function Chapter() {
           {images.length > 0 ? (
             <ImageList sx={{ width: "90%", height: "90vh" }} cols={1}>
               {images.map((item, index) => (
-                <ImageListItem key={index} sx={{ borderBottom: "1px solid" }}>
+                <ImageListItem
+                  key={index}
+                  sx={{ borderBottom: "1px solid #eee" }}
+                >
                   <img src={item} alt={item.split("/").at(-1)} loading="lazy" />
                 </ImageListItem>
               ))}
