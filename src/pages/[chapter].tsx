@@ -12,6 +12,7 @@ import {
 // import data from "../../public/api.json";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
+import Skeleton from "@mui/material/Skeleton";
 
 function Chapter() {
   const router = useRouter();
@@ -49,6 +50,7 @@ function Chapter() {
     const getChapter = async (mangaid: string) => {
       let pages = await fetch("/api/getchapter?mangaid=" + mangaid);
       const data = await pages.json();
+      console.log(data.chapter.pages.split(","));
       setImages(data.chapter.pages.split(","));
       // console.log(images);
     };
@@ -56,13 +58,15 @@ function Chapter() {
     getChapter(chapter);
   }, [chapter]);
 
+  const skel = 10;
+
   return (
     <>
       <Header></Header>
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
         <Container sx={{ border: "1px solid #eee" }}>
-          {images.length > 1 ? (
+          {images.length > 0 ? (
             <ImageList sx={{ width: "90%", height: "90vh" }} cols={1}>
               {images.map((item, index) => (
                 <ImageListItem key={index} sx={{ borderBottom: "1px solid" }}>
@@ -71,7 +75,13 @@ function Chapter() {
               ))}
             </ImageList>
           ) : (
-            <CircularProgress />
+            <ImageList sx={{ width: "90%", height: "90vh" }} cols={1}>
+              {[...Array(skel)].map((item, i) => (
+                <ImageListItem key={i} sx={{ borderBottom: "1px solid #eee" }}>
+                  <Skeleton variant="rectangular" width={700} height={1000} />
+                </ImageListItem>
+              ))}
+            </ImageList>
           )}
         </Container>
       </Box>

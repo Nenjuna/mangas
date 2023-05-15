@@ -22,7 +22,7 @@ export default async function handler(
     return response.status(200).json({chapter: {
         chapter: id,
         subtitle: "Coming Soon",
-        pages: "https://img.spoilerhat.com/img/?url=https://i.imgur.com/bUqKp0v.png",
+        pages: "https://i.imgur.com/bUqKp0v.png",
     }
 })
   }else{
