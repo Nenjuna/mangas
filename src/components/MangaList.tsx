@@ -115,7 +115,7 @@ export default function VirtualizedList(props: { chapters: any }) {
   return (
     <Box
       sx={{
-        width: "50%",
+        width: "100%",
         height: "100%",
         border: "1px solid #eee",
       }}

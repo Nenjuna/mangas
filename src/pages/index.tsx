@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import MangaList from "../components/MangaList";
 import { NextFetchEvent } from "next/server";
 import { useEffect } from "react";
+import Grid from "@mui/material/Grid";
 
 export default function Home() {
   const [chapters, setChapters] = React.useState([]);
@@ -32,7 +33,12 @@ export default function Home() {
       <Header></Header>
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
-        <MangaList chapters={chapters} />
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <MangaList chapters={chapters} />
+          </Grid>
+        </Grid>
+
         {/* <Container
           sx={{ justifyItems: "left", alignItems: "flex-start" }}
         ></Container> */}
