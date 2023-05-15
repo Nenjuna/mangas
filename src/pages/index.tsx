@@ -34,7 +34,7 @@ export default function Home() {
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={10}>
             <MangaList chapters={chapters} />
           </Grid>
         </Grid>
