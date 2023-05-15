@@ -52,11 +52,28 @@ function renderRow(props: ListChildComponentProps) {
         sx={{ p: "10px" }}
       >
         {/* <ListItemButton> */}
-        <Link href={"chapter_" + data[index]["chapter"]}>
+        <Link
+          href={
+            "chapter_" +
+            (Number(data[index]["chapter"]) % 1 == 0
+              ? data[index]["chapter"].split(".")[0]
+              : data[index]["chapter"])
+          }
+        >
           <Stack direction="row" spacing={2}>
-            <Avatar {...stringAvatar(data[index]["chapter"])} />
+            <Avatar
+              {...stringAvatar(
+                Number(data[index]["chapter"]) % 1 == 0
+                  ? data[index]["chapter"].split(".")[0]
+                  : data[index]["chapter"]
+              )}
+            />
             <ListItemText
-              primary={`Chapter: ${data[index]["chapter"]}`}
+              primary={`Chapter: ${
+                Number(data[index]["chapter"]) % 1 == 0
+                  ? data[index]["chapter"].split(".")[0]
+                  : data[index]["chapter"]
+              }`}
               secondary={
                 data[index]["subtitle"].length > 2
                   ? data[index]["subtitle"]
@@ -84,17 +101,6 @@ export default function VirtualizedList() {
   };
 
   getChapters();
-  // const chapters = Object.fromEntries(
-  //   Object.entries(data).sort((a, b) => {
-  //     return (
-  //       parseInt(b[0].replace("Black Clover, Chapter ", "")) -
-  //       parseInt(a[0].replace("Black Clover, Chapter ", ""))
-  //     );
-  //   })
-  // );
-  // const val = Object.entries(chapters);
-  // console.log(chapters);
-
   return (
     <Box
       sx={{
