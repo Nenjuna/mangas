@@ -76,11 +76,11 @@ export default function VirtualizedList() {
 
   const getChapters = async (limit = 10, offset = 0) => {
     let mangaList = await fetch(
-      "http://localhost:3000/api/chapters?limit=" + limit + "&offset=" + offset
+      "/api/chapters?limit=" + limit + "&offset=" + offset
     );
     const data = await mangaList.json();
     setChapters(data.chapters);
-    console.log(data.chapters);
+    // console.log(data.chapters);
   };
 
   getChapters();
