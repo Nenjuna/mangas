@@ -7,6 +7,7 @@ import data from "../../public/api.json";
 import Link from "next/link";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
+import Skeleton from "@mui/material/Skeleton";
 import * as React from "react";
 
 function stringToColor(string: string) {
@@ -88,8 +89,28 @@ function renderRow(props: ListChildComponentProps) {
   );
 }
 
+function skeleton(props: ListChildComponentProps) {
+  const { index, style, data } = props;
+
+  return (
+    <ListItem
+      style={style}
+      key={index}
+      component="div"
+      divider
+      sx={{ p: "10px" }}
+    >
+      <Stack direction="row" spacing={2}>
+        <Skeleton variant="circular" width={40} height={40} />
+        <Skeleton variant="rectangular" width={210} height={40} />
+      </Stack>
+    </ListItem>
+  );
+}
+
 export default function VirtualizedList(props: { chapters: any }) {
   const { chapters } = props;
+  console.log(chapters.length);
 
   return (
     <Box
@@ -99,16 +120,29 @@ export default function VirtualizedList(props: { chapters: any }) {
         border: "1px solid #eee",
       }}
     >
-      <FixedSizeList
-        height={1000}
-        width="auto"
-        itemSize={60}
-        itemCount={chapters.length}
-        overscanCount={5}
-        itemData={chapters}
-      >
-        {renderRow}
-      </FixedSizeList>
+      {chapters.length > 1 ? (
+        <FixedSizeList
+          height={1000}
+          width="auto"
+          itemSize={60}
+          itemCount={chapters.length}
+          overscanCount={5}
+          itemData={chapters}
+        >
+          {renderRow}
+        </FixedSizeList>
+      ) : (
+        <FixedSizeList
+          height={1000}
+          width="auto"
+          itemSize={60}
+          itemCount={50}
+          overscanCount={5}
+          // itemData={chapters}
+        >
+          {skeleton}
+        </FixedSizeList>
+      )}
     </Box>
   );
 }
