@@ -9,15 +9,18 @@ import { useEffect } from "react";
 export default function Home() {
   const [chapters, setChapters] = React.useState([]);
 
-  const getChapters = async (limit = 50, offset = 0) => {
-    let mangaList = await fetch(
-      "/api/chapters?limit=" + limit + "&offset=" + offset
-    );
-    const data = await mangaList.json();
-    setChapters(data.chapters);
-  };
+  useEffect(() => {
+    const getChapters = async (limit = 50, offset = 0) => {
+      let mangaList = await fetch(
+        "/api/chapters?limit=" + limit + "&offset=" + offset
+      );
+      const data = await mangaList.json();
+      setChapters(data.chapters);
+    };
 
-  getChapters();
+    getChapters();
+  }, []);
+
   return (
     <>
       <Head>
