@@ -88,19 +88,9 @@ function renderRow(props: ListChildComponentProps) {
   );
 }
 
-export default function VirtualizedList() {
-  const [chapters, setChapters] = React.useState([]);
+export default function VirtualizedList(props: { chapters: any }) {
+  const { chapters } = props;
 
-  const getChapters = async (limit = 50, offset = 0) => {
-    let mangaList = await fetch(
-      "/api/chapters?limit=" + limit + "&offset=" + offset
-    );
-    const data = await mangaList.json();
-    setChapters(data.chapters);
-    // console.log(data.chapters);
-  };
-
-  getChapters();
   return (
     <Box
       sx={{

@@ -4,20 +4,20 @@ import { Container, Box, CssBaseline } from "@mui/material";
 import Header from "../components/Header";
 import MangaList from "../components/MangaList";
 import { NextFetchEvent } from "next/server";
+import { useEffect } from "react";
 
 export default function Home() {
   const [chapters, setChapters] = React.useState([]);
 
-  const getChapters = async (limit = 100, offset = 0) => {
+  const getChapters = async (limit = 50, offset = 0) => {
     let mangaList = await fetch(
-      "http://localhost:3000/api/chapters?limit=" + limit + "&offset=" + offset
+      "/api/chapters?limit=" + limit + "&offset=" + offset
     );
     const data = await mangaList.json();
-    // setChapters(data);
-    // console.log(data);
+    setChapters(data.chapters);
   };
 
-  // getChapters();
+  getChapters();
   return (
     <>
       <Head>
@@ -29,7 +29,7 @@ export default function Home() {
       <Header></Header>
       <Box sx={{ display: "flex", p: 3, mt: 8 }} component="main">
         <CssBaseline />
-        <MangaList />
+        <MangaList chapters={chapters} />
         {/* <Container
           sx={{ justifyItems: "left", alignItems: "flex-start" }}
         ></Container> */}
