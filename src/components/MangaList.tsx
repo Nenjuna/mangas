@@ -91,7 +91,7 @@ function renderRow(props: ListChildComponentProps) {
 export default function VirtualizedList() {
   const [chapters, setChapters] = React.useState([]);
 
-  const getChapters = async (limit = 10, offset = 0) => {
+  const getChapters = async (limit = 50, offset = 0) => {
     let mangaList = await fetch(
       "/api/chapters?limit=" + limit + "&offset=" + offset
     );
