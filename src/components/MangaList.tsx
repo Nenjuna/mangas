@@ -9,6 +9,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Skeleton from "@mui/material/Skeleton";
 import * as React from "react";
+import ScrollToTopFab from "./scrollToTop";
 
 function stringToColor(string: string) {
   let hash = 0;
@@ -143,6 +144,7 @@ export default function VirtualizedList(props: { chapters: any }) {
           {skeleton}
         </FixedSizeList>
       )}
+      <ScrollToTopFab />
     </Box>
   );
 }

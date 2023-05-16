@@ -13,50 +13,25 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import { useEffect, useState } from "react";
 import Skeleton from "@mui/material/Skeleton";
+import ScrollToTopFab from "@/components/scrollToTop";
 
 function Chapter() {
   const router = useRouter();
-
-  const chapter = router.query.chapter as string;
-  // const chapterid = Number(chapter.split("_")[1]);
-  // console.log(chapter);
-
-  // const chapters = data;
-
-  // console.log(chapter);
-
-  // type image = { src: string; id: string };
-
   type image = string;
 
   const [images, setImages] = useState<image[]>([]);
-  // const [images, setImages] = useState<image[]>([
-  //   {
-  //     src: "https://img.spoilerhat.com/img/?url=https://i.imgur.com/bUqKp0v.png",
-  //     id: "def",
-  //   },
-  // ]);
-
-  // const filteredChapter = Object.entries(chapters).find(
-  //   (el) =>
-  //     el[0].replace(/ /g, "_").toLowerCase().replace("black_clover,_", "") ===
-  //     chapter
-  // );
-  // useEffect(() => {
-  //   if (filteredChapter) setImages(filteredChapter[1].chapters);
-  // }, [filteredChapter]);
-
   useEffect(() => {
     const getChapter = async (mangaid: string) => {
       let pages = await fetch("/api/getchapter?mangaid=" + mangaid);
       const data = await pages.json();
       console.log(data.chapter.pages.split(","));
       setImages(data.chapter.pages.split(","));
-      // console.log(images);
     };
-    // const chapterid = Number(chapter.split("_")[1]);
-    getChapter(chapter);
-  }, [chapter]);
+    if (router.asPath !== router.route) {
+      const chapter = router.query.chapter as string;
+      getChapter(chapter);
+    }
+  }, [router]);
 
   const skel = 10;
 
@@ -67,7 +42,7 @@ function Chapter() {
         <CssBaseline />
         <Container sx={{ border: "1px solid #eee" }}>
           {images.length > 0 ? (
-            <ImageList sx={{ width: "90%", height: "90vh" }} cols={1}>
+            <ImageList sx={{ width: "100%" }} cols={1}>
               {images.map((item, index) => (
                 <ImageListItem
                   key={index}
@@ -86,6 +61,7 @@ function Chapter() {
               ))}
             </ImageList>
           )}
+          <ScrollToTopFab />
         </Container>
       </Box>
     </>

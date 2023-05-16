@@ -4,7 +4,15 @@ import Link from "next/link";
 export default function Header() {
   return (
     <>
-      <AppBar component="nav">
+      <AppBar
+        component="nav"
+        sx={{
+          alignItems: {
+            xs: "center",
+            lg: "start",
+          },
+        }}
+      >
         <Toolbar>
           <Link href="/">
             <Typography

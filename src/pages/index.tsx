@@ -1,11 +1,9 @@
 import Head from "next/head";
 import * as React from "react";
-import { Container, Box, CssBaseline } from "@mui/material";
+import { Box, CssBaseline, useScrollTrigger, Fab, Zoom } from "@mui/material";
 import Header from "../components/Header";
 import MangaList from "../components/MangaList";
-import { NextFetchEvent } from "next/server";
-import { useEffect } from "react";
-import Grid from "@mui/material/Grid";
+import { useEffect, useCallback } from "react";
 
 export default function Home() {
   const [chapters, setChapters] = React.useState([]);
@@ -20,6 +18,14 @@ export default function Home() {
     };
 
     getChapters();
+  }, []);
+
+  const trigger = useScrollTrigger({
+    threshold: 100,
+  });
+
+  const scrollToTop = useCallback(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   return (
@@ -47,15 +53,7 @@ export default function Home() {
         component="main"
       >
         <CssBaseline />
-        {/* <Grid container spacing={2}>
-          <Grid item xs={10}> */}
         <MangaList chapters={chapters} />
-        {/* </Grid>
-        </Grid> */}
-
-        {/* <Container
-          sx={{ justifyItems: "left", alignItems: "flex-start" }}
-        ></Container> */}
       </Box>
     </>
   );
