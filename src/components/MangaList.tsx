@@ -32,8 +32,6 @@ function stringToColor(string: string) {
 }
 
 function stringAvatar(name: string) {
-  // let c = name.replace("Black Clover, ", "").split(" ");
-  // let co = `${c[0][0]}${c[1]}`;
   return {
     sx: {
       bgcolor: stringToColor(name + name),
